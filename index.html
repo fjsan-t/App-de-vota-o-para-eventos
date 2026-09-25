@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação das Apresentações</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+    
+<body>
+
+<div class="container">
+    <div class="topo-brasoes">
+    <img src="logo.png" alt="Logo Esquerda" class="logo-brasao">
+    
+    <div class="titulos-cabecalho">
+      <h1>I Encontro de Pesquisadores- DPT</h1>
+      <h2>Avaliação dos Trabalhos Apresentados</h2>
+    </div>
+    
+    <img src="https://iconape.com/wp-content/files/ay/333133/png/333133.png" alt="Logo Direita" class="logo-brasao">
+  </div>
+
+  
+    <div id="containerApresentacoes"></div>
+
+    <div class="secao-final">
+        <div class="campo-email">
+            <label for="email">Informe seu e-mail para concluir e registrar os votos:</label>
+            <input type="email" id="email" placeholder="seuemail@exemplo.com" required>
+        </div>
+
+        <button class="btn-enviar" onclick="enviarVotacao()">Concluir e Enviar Votação</button>
+        <div id="mensagem"></div>
+    </div>
+</div>
+
+<script src="dados.js"></script>
+<script>
+
+
+    let notasSelecionadas = {};
+
+    window.onload = function() {
+        renderizarApresentacoes(trabalhos);
+    };
+
+    function renderizarApresentacoes(lista) {
+        const container = document.getElementById('containerApresentacoes');
+        container.innerHTML = '';
+
+        lista.forEach(trab => {
+            const card = document.createElement('div');
+            card.className = 'card-trabalho';
+
+            let botoesHTML = '';
+            for (let i = 5; i <= 50; i+=5) {
+                botoesHTML += `<button type="button" class="btn-nota" onclick="selecionarNota(${trab.id}, ${i}, this)">${i}</button>`;
+            }
+
+            card.innerHTML = `
+                <h3>${trab.titulo}</h3>
+                <div class="apresentador">Apresentado por: ${trab.apresentador}</div>
+                <details class="card-detalhes">
+                    <summary>📄 Ver detalhes do trabalho</summary>
+                    <div>
+                        <p><strong>Autores:</strong> ${trab.autores}</p>
+                        <p><strong>Síntese:</strong> ${trab.sintese}</p>
+                    </div>
+                </details>
+                <span class="label-nota">Atribua sua nota (5 a 50):</span>
+                <div class="escala-notas" id="escala-${trab.id}">
+                    ${botoesHTML}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selecionarNota(trabalhoId, nota, elemento) {
+        notasSelecionadas[trabalhoId] = nota;
+
+        const containerPai = document.getElementById(`escala-${trabalhoId}`);
+        const botoes = containerPai.querySelectorAll('.btn-nota');
+        botoes.forEach(btn => btn.classList.remove('selecionado'));
+
+        elemento.classList.add('selecionado');
+    }
+
+    const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxdIndHXGT4pswL6BP-vH61FUjU7OzG77fJfg2tx3oHspd6gsKix4jRkzpsHmAo_xJS/exec";
+
+    function enviarVotacao() {
+        const email = document.getElementById('email').value.trim();
+
+        if (!email) {
+            alert("Digite seu e-mail.");
+            return;
+        }
+
+        fetch(URL_APPS_SCRIPT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: email,
+                votos: notasSelecionadas
+            })
+        })
+        .then(() => alert("Voto registrado com sucesso!"))
+        .catch(() => alert("Erro ao enviar. Verifique sua conexão."));
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+body { font-family: Arial, sans-serif; background: #fffffe; margin: 0; padding: 15px; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+
+        .topo-brasoes { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .titulos-cabecalho {text-align: center;}
+        .titulos-cabecalho h1 { margin: 0; color: #0e218a; font-size: 1.3rem; }
+        .titulos-cabecalho h2 { margin: 4px 0 0 0; color: #555; font-size: 0.95rem; font-weight: normal; }
+        .logo-brasao { width: 50px; height: auto; }
+
+        .card-trabalho { background: #eef4fa; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+        .card-trabalho h3 { font-weight: 500; margin: 0 0 5px 0; color: #0c0d0f; font-size: 1.1rem; }
+        .apresentador { font-weight: bold; color: #0e218a; font-size: 0.9rem; margin-bottom: 8px; }
+        
+
+        .card-detalhes { text-align: left; margin: 10px 0; }
+        .card-detalhes summary { cursor: pointer; color: #30383f; font-weight: bold; font-size: 0.9em; }
+        .card-detalhes div { background: #ececec; padding: 10px; border-radius: 6px; margin-top: 6px; }
+        .card-detalhes p { margin: 4px 0; font-size: 0.80em; font-style: italic; }
+        
+        .label-nota { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 8px; }
+        .escala-notas { display: flex; gap: 4px; flex-wrap: wrap; }
+        .btn-nota { flex: 1 1 40px; height: 40px; border: 1px solid #cbd5e0; background: white; border-radius: 6px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+        .btn-nota:hover { background: #edf2f7; }
+        .btn-nota.selecionado { background: #0e218a; color: white; border-color: #2c1f0b; transform: scale(1.05); }
+
+    
+        .secao-final { margin-top: 30px; border-top: 2px solid #e2e8f0; padding-top: 20px; }
+        .campo-email label { font-weight: bold; display: block; margin-bottom: 8px; color: #2d3748; }
+        .campo-email input { width: 100%; padding: 12px; border: 2px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 1rem; margin-bottom: 15px; }
+        
+        .btn-enviar { width: 100%; background: #0e218a; color: white; border: none; padding: 15px; font-size: 1.1rem; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .btn-enviar:hover { background: #0e218a; }
+        
+        #mensagem { margin-top: 15px; padding: 12px; border-radius: 6px; text-align: center; font-weight: bold; display: none; }
+        .sucesso { background: #c6f6d5; color: #151f1a; }
+
+        .card-podio { position: relative; border-left: 5px solid #cbd5e0; }
+        .card-podio.primeiro { border-left-color: #d69e2e; background: #fefcbf; }
+        .card-podio.segundo { border-left-color: #718096; background: #edf2f7; }
+        .card-podio.terceiro { border-left-color: #dd6b20; background: #feebc8; }
+        .posicao-podio { font-size: 2rem; margin-bottom: 5px; }
+        .nota-final { margin-top: 8px; font-size: 0.95rem; color: #0e218a; }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pódio dos Vencedores</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="dados.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="topo-brasoes">
+    <img src="logo.png" alt="Logo Esquerda" class="logo-brasao">
+    
+    <div class="titulos-cabecalho">
+      <h1>I Encontro de Pesquisadores- DPT</h1>
+      <h2>Avaliação dos Trabalhos Apresentados</h2>
+    </div>
+    
+    <img src="https://iconape.com/wp-content/files/ay/333133/png/333133.png" alt="Logo Direita" class="logo-brasao">
+  </div>
+    
+    <div id="lista-podio">
+      <p style="text-align: center;">Carregando resultados...</p>
+    </div>
+  </div>
+
+  <script>
+  
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxdIndHXGT4pswL6BP-vH61FUjU7OzG77fJfg2tx3oHspd6gsKix4jRkzpsHmAo_xJS/exec";
+
+    function carregarPodio() {
+      fetch(SCRIPT_URL)
+        .then(response => response.json())
+        .then(top3 => {
+          const container = document.getElementById("lista-podio");
+          container.innerHTML = "";
+
+          const icones = ["🥇", "🥈", "🥉"];
+          const classes = ["primeiro", "segundo", "terceiro"];
+
+          top3.forEach((item, index) => {
+
+            const trabalho = trabalhos.find(t => t.id == item.id);
+
+            if (trabalho) {
+              const card = document.createElement("div");
+              card.className = `card-trabalho card-podio ${classes[index]}`;
+              card.innerHTML = `
+                <div class="posicao-podio">${icones[index]}</div>
+                <h3>${trabalho.titulo}</h3>
+                <div class="apresentador">${trabalho.autor}</div>
+                <div class="nota-final">Nota Final: <strong>${item.nota.toFixed(2)}</strong></div>
+              `;
+              container.appendChild(card);
+            }
+          });
+        })
+        .catch(err => {
+          document.getElementById("lista-podio").innerHTML = "<p style='text-align:center;'>Erro ao carregar os resultados.</p>";
+        });
+    }
+
+    window.onload = carregarPodio;
+  </script>
+</body>
+</html>
